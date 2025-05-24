@@ -1,6 +1,7 @@
 .pagination {
   display: flex;
   gap: 4px;
+  flex-wrap: wrap; // optional, to keep layout clean if space is tight
 
   &__button {
     width: 40px;
@@ -16,6 +17,27 @@
 
     &-text {
       font-size: 16px;
+    }
+  }
+
+  &__jump {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 12px;
+    margin-top: 4px;
+
+    &-input {
+      width: 70px;
+      padding: 4px 6px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+
+      &:focus {
+        border-color: #888;
+      }
     }
   }
 }
