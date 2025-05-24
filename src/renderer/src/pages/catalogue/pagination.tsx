@@ -1,3 +1,4 @@
+import { useState } from "react"; // <-- Add this
 import { Button } from "@renderer/components/button/button";
 import { ChevronLeftIcon, ChevronRightIcon } from "@primer/octicons-react";
 import { useFormat } from "@renderer/hooks/use-format";
@@ -15,6 +16,7 @@ export function Pagination({
   onPageChange,
 }: PaginationProps) {
   const { formatNumber } = useFormat();
+  const [jumpPage, setJumpPage] = useState(""); // <-- Add this
 
   if (totalPages <= 1) return null;
 
@@ -95,6 +97,32 @@ export function Pagination({
       >
         <ChevronRightIcon />
       </Button>
+
+      {/* 👇 ADD THIS: Jump to Page Input */}
+      <div className="pagination__jump">
+        <input
+          type="number"
+          min={1}
+          max={totalPages}
+          value={jumpPage}
+          onChange={(e) => setJumpPage(e.target.value)}
+          placeholder="Jump to..."
+          className="pagination__jump-input"
+        />
+        <Button
+          theme="outline"
+          className="pagination__button"
+          onClick={() => {
+            const parsed = parseInt(jumpPage, 10);
+            if (!isNaN(parsed) && parsed >= 1 && parsed <= totalPages) {
+              onPageChange(parsed);
+              setJumpPage(""); // optional: reset input
+            }
+          }}
+        >
+          Go
+        </Button>
+      </div>
     </div>
   );
 }
